@@ -1,5 +1,11 @@
 .build/
 .swiftpm/
+build/
+dist/
+*.dmg
+*.xcarchive
+*.xcresult
+Config/DMGBackground.png
 
 # Xcode and macOS user files
 DerivedData/

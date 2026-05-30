@@ -85,9 +85,23 @@ final class TunnelManager: ObservableObject {
 
     func duplicateSelectedTunnel() {
         guard case .tunnel(let tunnelID) = selection,
-              var tunnel = tunnel(with: tunnelID) else {
+                            let tunnel = tunnel(with: tunnelID) else {
             return
         }
+
+        duplicateTunnel(tunnel)
+    }
+
+    func duplicateTunnel(with tunnelID: UUID) {
+        guard let tunnel = tunnel(with: tunnelID) else {
+            return
+        }
+
+        duplicateTunnel(tunnel)
+    }
+
+    private func duplicateTunnel(_ sourceTunnel: Tunnel) {
+        var tunnel = sourceTunnel
 
         tunnel.id = UUID()
         tunnel.name = uniqueName(basedOn: "\(tunnel.name) Copy")
@@ -100,6 +114,14 @@ final class TunnelManager: ObservableObject {
 
     func removeSelectedTunnel() {
         guard case .tunnel(let tunnelID) = selection else {
+            return
+        }
+
+        removeTunnel(with: tunnelID)
+    }
+
+    func removeTunnel(with tunnelID: UUID) {
+        guard tunnel(with: tunnelID) != nil else {
             return
         }
 
@@ -118,6 +140,20 @@ final class TunnelManager: ObservableObject {
               let tunnel = tunnel(with: tunnelID) else {
             return
         }
+
+        exportTunnel(tunnel)
+    }
+
+    func exportTunnel(with tunnelID: UUID) {
+        guard let tunnel = tunnel(with: tunnelID) else {
+            return
+        }
+
+        exportTunnel(tunnel)
+    }
+
+    private func exportTunnel(_ tunnel: Tunnel) {
+        selection = .tunnel(tunnel.id)
 
         do {
             try export(tunnels: [tunnel], suggestedFileName: "\(tunnel.name).json")

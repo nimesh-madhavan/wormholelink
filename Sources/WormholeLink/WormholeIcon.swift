@@ -38,19 +38,15 @@ enum WormholeIcon {
         let strokeColor: NSColor
         let coreColor: NSColor
         let glowColor: NSColor
-        let badgeColor: NSColor
-
         switch colorMode {
         case .template:
             strokeColor = .labelColor
             coreColor = .labelColor
             glowColor = .labelColor
-            badgeColor = .labelColor
         case .fullColor:
             strokeColor = NSColor(calibratedWhite: 0.97, alpha: 0.97)
             coreColor = NSColor(calibratedRed: 0.70, green: 0.92, blue: 1.0, alpha: 0.98)
             glowColor = NSColor(calibratedRed: 0.42, green: 0.82, blue: 1.0, alpha: 0.68)
-            badgeColor = NSColor(calibratedRed: 1.0, green: 0.84, blue: 0.28, alpha: 1)
         }
 
         let normalizedFrame = CGFloat(animationFrame % 12) / 11.0
@@ -113,18 +109,6 @@ enum WormholeIcon {
         } else {
             strokeColor.setFill()
             centerOrb.fill()
-        }
-
-        if activeCount > 1 {
-            let badgeRect = NSRect(
-                x: rect.maxX - rect.width * 0.34,
-                y: rect.minY + rect.height * 0.02,
-                width: rect.width * 0.26,
-                height: rect.width * 0.26
-            )
-            let badge = NSBezierPath(ovalIn: badgeRect)
-            badgeColor.setFill()
-            badge.fill()
         }
     }
 

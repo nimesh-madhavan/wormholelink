@@ -24,6 +24,31 @@ struct PreferencesRootView: View {
                     ForEach(manager.tunnels) { tunnel in
                         Label(tunnel.name, systemImage: iconName(for: tunnel.type))
                             .tag(PreferencesSelection.tunnel(tunnel.id))
+                            .contextMenu {
+                                Button("Connect") {
+                                    manager.connectTunnel(tunnel.id)
+                                }
+
+                                Button("Disconnect") {
+                                    manager.disconnectTunnel(tunnel.id)
+                                }
+
+                                Divider()
+
+                                Button("Duplicate") {
+                                    manager.duplicateTunnel(with: tunnel.id)
+                                }
+
+                                Button("Export...") {
+                                    manager.exportTunnel(with: tunnel.id)
+                                }
+
+                                Divider()
+
+                                Button("Delete", role: .destructive) {
+                                    manager.removeTunnel(with: tunnel.id)
+                                }
+                            }
                     }
                 }
             }

@@ -40,6 +40,26 @@ swift build
 
 This builds the debug executable in `.build/arm64-apple-macosx/debug/` on Apple Silicon Macs.
 
+## Xcode Project
+
+This repository also includes an Xcode project for app-style development and release packaging:
+
+```text
+WormholeLink.xcodeproj
+```
+
+Open it with full Xcode:
+
+```bash
+open WormholeLink.xcodeproj
+```
+
+Notes:
+
+- Full Xcode is required. Command Line Tools alone are not enough for `xcodebuild archive`.
+- The Xcode project is configured as a macOS app target that uses the existing source files under `Sources/WormholeLink`.
+- The bundled app uses `Config/Info.plist` for app metadata.
+
 ## Run
 
 To launch the app in development mode:
@@ -81,6 +101,12 @@ Then reproduce the issue and inspect the debug log.
 
 You can also open the folder in Xcode or attach LLDB to the running process if you want to step through the Swift code.
 
+With the included Xcode project, you can:
+
+- run the app directly from Xcode
+- set breakpoints in the Swift sources
+- archive a Release build for distribution
+
 ## Configuration Import and Export
 
 WormholeLink supports JSON-based tunnel configuration exchange.
@@ -104,13 +130,102 @@ Imported connections are merged with existing connections. New UUIDs are assigne
 ```bash
 swift build
 swift run
+open WormholeLink.xcodeproj
+./scripts/package-dmg.sh
+./scripts/release-all.sh
 ```
+
+## Release Packaging
+
+Release packaging is set up through shell scripts in `scripts/`.
+
+### Archive a Release Build
+
+```bash
+./scripts/archive-release.sh
+```
+
+Optional environment variables:
+
+- `DEVELOPMENT_TEAM`: override the signing team for `xcodebuild archive`
+- `SKIP_CODESIGN=1`: create an unsigned archive for local testing
+- `ARCHIVE_PATH=/custom/path/WormholeLink.xcarchive`: choose a custom archive path
+
+### Create a ZIP for Direct Distribution
+
+```bash
+./scripts/package-release.sh
+```
+
+This will:
+
+- archive the app in Release mode
+- package `WormholeLink.app` into `dist/WormholeLink-macOS.zip`
+
+### Create a DMG for Drag-and-Drop Installation
+
+```bash
+./scripts/package-dmg.sh
+```
+
+This will:
+
+- archive the app in Release mode
+- create `dist/WormholeLink-macOS.dmg`
+- include a styled Finder window with background artwork and positioned icons
+- use the application icon as the mounted DMG volume icon
+- include an `Applications` shortcut for drag-and-drop installation
+
+Optional environment variables:
+
+- `DMG_PATH=/custom/path/WormholeLink.dmg`: choose a custom DMG output path
+- `DMG_VOLUME_NAME=WormholeLink`: set the mounted volume name
+- `SKIP_DMG_LAYOUT=1`: skip Finder window styling when running in an environment without Finder automation
+- `NOTARIZE_DMG=1`: build the DMG and immediately notarize and staple it
+
+### Notarize and Staple a Release Artifact
+
+```bash
+./scripts/notarize-release.sh
+```
+
+or for a DMG:
+
+```bash
+./scripts/notarize-release.sh dist/WormholeLink-macOS.dmg
+```
+
+Use either:
+
+- `NOTARY_PROFILE=<keychain-profile>`
+
+or:
+
+- `APPLE_ID=<apple-id>`
+- `APPLE_TEAM_ID=<team-id>`
+- `APPLE_APP_PASSWORD=<app-specific-password>`
+
+By default the notarization script targets `dist/WormholeLink-macOS.zip`.
+
+When the input artifact is a `.dmg`, `.app`, or `.pkg`, the script also runs `xcrun stapler staple` after notarization succeeds.
+
+### Build ZIP and DMG Together
+
+```bash
+./scripts/release-all.sh
+```
+
+This builds both release artifacts into `dist/`.
+
+Optional environment variables:
+
+- `NOTARIZE_DMG=1`: also notarize and staple the DMG once both artifacts are built
 
 ## Current Limitations
 
-- This is a development build, not a packaged `.app` or DMG release
+- The included release flow produces an archived app bundle, ZIP, and styled DMG, but it does not yet automate Developer ID signing for the DMG container itself
 - Notification Center support is only enabled when running from a proper bundled macOS app
-- The app does not yet include an Xcode project, signing setup, or release packaging flow
+- The DMG layout uses Finder scripting, so fully headless CI environments may need `SKIP_DMG_LAYOUT=1`
 
 ## Next Steps
 
