@@ -289,7 +289,6 @@ struct GeneralSettingsView: View {
         Form {
             Toggle("Launch WormholeLink at login", isOn: settings.launchAtLogin)
             Toggle("Show connection notifications", isOn: settings.useNotificationCenter)
-            Toggle("Allow saving administrator password in Keychain", isOn: settings.allowSaveAdminPasswordInKeychain)
             Toggle("Disconnect and reconnect active tunnels on sleep/wake", isOn: settings.reconnectOnSleepWake)
         }
         .padding(24)

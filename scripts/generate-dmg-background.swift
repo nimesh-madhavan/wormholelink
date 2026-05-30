@@ -124,26 +124,6 @@ struct GenerateDMGBackground {
         path.stroke()
     }
 
-    private static func drawArrow(in rect: NSRect) {
-        let path = NSBezierPath()
-        path.move(to: CGPoint(x: rect.minX, y: rect.midY))
-        path.line(to: CGPoint(x: rect.maxX - 22, y: rect.midY))
-        path.lineWidth = 8
-        path.lineCapStyle = .round
-        NSColor(calibratedRed: 0.97, green: 0.99, blue: 1.0, alpha: 0.95).setStroke()
-        path.stroke()
-
-        let head = NSBezierPath()
-        head.move(to: CGPoint(x: rect.maxX - 28, y: rect.midY + 20))
-        head.line(to: CGPoint(x: rect.maxX, y: rect.midY))
-        head.line(to: CGPoint(x: rect.maxX - 28, y: rect.midY - 20))
-        head.lineWidth = 8
-        head.lineCapStyle = .round
-        head.lineJoinStyle = .round
-        NSColor(calibratedRed: 0.97, green: 0.99, blue: 1.0, alpha: 0.95).setStroke()
-        head.stroke()
-    }
-
     private static func drawText(_ text: String, rect: NSRect, font: NSFont, color: NSColor, shadowColor: NSColor?) {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = .center

@@ -104,7 +104,6 @@ struct Tunnel: Identifiable, Codable, Equatable {
 struct AppSettings: Codable, Equatable {
     var launchAtLogin: Bool = false
     var useNotificationCenter: Bool = true
-    var allowSaveAdminPasswordInKeychain: Bool = false
     var reconnectOnSleepWake: Bool = true
 }
 
@@ -118,7 +117,6 @@ enum TunnelPhase: Equatable {
 
 struct TunnelRuntimeState: Equatable {
     var phase: TunnelPhase = .idle
-    var lastEvent: Date = .now
 
     var isActive: Bool {
         switch phase {

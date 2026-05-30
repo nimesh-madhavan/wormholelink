@@ -24,6 +24,8 @@ set -- xcodebuild \
   -scheme "$SCHEME" \
   -configuration Release \
   -archivePath "$ARCHIVE_PATH" \
+  ARCHS="arm64 x86_64" \
+  ONLY_ACTIVE_ARCH=NO \
   archive
 
 if [ "${SKIP_CODESIGN:-0}" = "1" ]; then

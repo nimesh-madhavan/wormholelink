@@ -151,6 +151,8 @@ Optional environment variables:
 - `SKIP_CODESIGN=1`: create an unsigned archive for local testing
 - `ARCHIVE_PATH=/custom/path/WormholeLink.xcarchive`: choose a custom archive path
 
+The archive script builds a universal binary targeting both `arm64` (Apple Silicon) and `x86_64` (Intel) so the resulting app runs natively on all supported Macs.
+
 ### Create a ZIP for Direct Distribution
 
 ```bash

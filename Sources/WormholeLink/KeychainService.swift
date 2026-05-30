@@ -4,7 +4,6 @@ import Security
 enum KeychainSecretKind: String {
     case tunnelPassword = "tunnel-password"
     case tunnelPassphrase = "tunnel-passphrase"
-    case adminPassword = "admin-password"
 }
 
 final class KeychainService {
