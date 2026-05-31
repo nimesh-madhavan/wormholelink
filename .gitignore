@@ -1,0 +1,24 @@
+.build/
+.swiftpm/
+build/
+dist/
+*.dmg
+*.xcarchive
+*.xcresult
+Config/DMGBackground.png
+
+# Xcode and macOS user files
+DerivedData/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+
+# Local editor settings
+.vscode/
+
+# macOS metadata
+.DS_Store
+
+# Local logs
+*.log

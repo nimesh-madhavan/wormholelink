@@ -1,0 +1,293 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A10000010000000000000000 /* AppIcon.icns in Resources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000000 /* AppIcon.icns */; };
+		A10000010000000000000001 /* AppLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000001 /* AppLogger.swift */; };
+		A10000010000000000000002 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000002 /* KeychainService.swift */; };
+		A10000010000000000000003 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000003 /* Main.swift */; };
+		A10000010000000000000004 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000004 /* Models.swift */; };
+		A10000010000000000000005 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000005 /* Persistence.swift */; };
+		A10000010000000000000006 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000006 /* PreferencesWindowController.swift */; };
+		A10000010000000000000007 /* SleepWakeObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000007 /* SleepWakeObserver.swift */; };
+		A10000010000000000000008 /* StatusBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000008 /* StatusBarController.swift */; };
+		A10000010000000000000009 /* SystemProxyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000010000000000000009 /* SystemProxyService.swift */; };
+		A1000001000000000000000A /* TunnelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000000A /* TunnelManager.swift */; };
+		A1000001000000000000000B /* TunnelSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000000B /* TunnelSession.swift */; };
+		A1000001000000000000000C /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000000C /* Views.swift */; };
+		A1000001000000000000000D /* WormholeIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000001000000000000000D /* WormholeIcon.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A20000010000000000000000 /* AppIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+		A20000010000000000000001 /* AppLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLogger.swift; sourceTree = "<group>"; };
+		A20000010000000000000002 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
+		A20000010000000000000003 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
+		A20000010000000000000004 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		A20000010000000000000005 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
+		A20000010000000000000006 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
+		A20000010000000000000007 /* SleepWakeObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SleepWakeObserver.swift; sourceTree = "<group>"; };
+		A20000010000000000000008 /* StatusBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBarController.swift; sourceTree = "<group>"; };
+		A20000010000000000000009 /* SystemProxyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemProxyService.swift; sourceTree = "<group>"; };
+		A2000001000000000000000A /* TunnelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelManager.swift; sourceTree = "<group>"; };
+		A2000001000000000000000B /* TunnelSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TunnelSession.swift; sourceTree = "<group>"; };
+		A2000001000000000000000C /* Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
+		A2000001000000000000000D /* WormholeIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WormholeIcon.swift; sourceTree = "<group>"; };
+		A2000001000000000000000E /* WormholeLink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WormholeLink.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2000001000000000000000F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A20000010000000000000010 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		A20000010000000000000011 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A30000010000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A40000010000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				A40000010000000000000002 /* Sources */,
+				A40000010000000000000003 /* Config */,
+				A20000010000000000000011 /* Package.swift */,
+				A20000010000000000000010 /* README.md */,
+				A40000010000000000000004 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A40000010000000000000002 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000001 /* AppLogger.swift */,
+				A20000010000000000000002 /* KeychainService.swift */,
+				A20000010000000000000003 /* Main.swift */,
+				A20000010000000000000004 /* Models.swift */,
+				A20000010000000000000005 /* Persistence.swift */,
+				A20000010000000000000006 /* PreferencesWindowController.swift */,
+				A20000010000000000000007 /* SleepWakeObserver.swift */,
+				A20000010000000000000008 /* StatusBarController.swift */,
+				A20000010000000000000009 /* SystemProxyService.swift */,
+				A2000001000000000000000A /* TunnelManager.swift */,
+				A2000001000000000000000B /* TunnelSession.swift */,
+				A2000001000000000000000C /* Views.swift */,
+				A2000001000000000000000D /* WormholeIcon.swift */,
+			);
+			path = Sources/WormholeLink;
+			sourceTree = SOURCE_ROOT;
+		};
+		A40000010000000000000003 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A20000010000000000000000 /* AppIcon.icns */,
+				A2000001000000000000000F /* Info.plist */,
+			);
+			path = Config;
+			sourceTree = SOURCE_ROOT;
+		};
+		A40000010000000000000004 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A2000001000000000000000E /* WormholeLink.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A50000010000000000000001 /* WormholeLink */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A80000010000000000000001 /* Build configuration list for PBXNativeTarget "WormholeLink" */;
+			buildPhases = (
+				A30000010000000000000002 /* Sources */,
+				A30000010000000000000001 /* Frameworks */,
+				A30000010000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WormholeLink;
+			productName = WormholeLink;
+			productReference = A2000001000000000000000E /* WormholeLink.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A60000010000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					A50000010000000000000001 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = A80000010000000000000002 /* Build configuration list for PBXProject "WormholeLink" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A40000010000000000000001;
+			productRefGroup = A40000010000000000000004 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A50000010000000000000001 /* WormholeLink */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A30000010000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000000 /* AppIcon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A30000010000000000000002 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A10000010000000000000001 /* AppLogger.swift in Sources */,
+				A10000010000000000000002 /* KeychainService.swift in Sources */,
+				A10000010000000000000003 /* Main.swift in Sources */,
+				A10000010000000000000004 /* Models.swift in Sources */,
+				A10000010000000000000005 /* Persistence.swift in Sources */,
+				A10000010000000000000006 /* PreferencesWindowController.swift in Sources */,
+				A10000010000000000000007 /* SleepWakeObserver.swift in Sources */,
+				A10000010000000000000008 /* StatusBarController.swift in Sources */,
+				A10000010000000000000009 /* SystemProxyService.swift in Sources */,
+				A1000001000000000000000A /* TunnelManager.swift in Sources */,
+				A1000001000000000000000B /* TunnelSession.swift in Sources */,
+				A1000001000000000000000C /* Views.swift in Sources */,
+				A1000001000000000000000D /* WormholeIcon.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A70000010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A70000010000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				MARKETING_VERSION = 0.1.0;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		A70000010000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wormholelink.app;
+				PRODUCT_NAME = WormholeLink;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		A70000010000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Config/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wormholelink.app;
+				PRODUCT_NAME = WormholeLink;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A80000010000000000000001 /* Build configuration list for PBXNativeTarget "WormholeLink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A70000010000000000000003 /* Debug */,
+				A70000010000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A80000010000000000000002 /* Build configuration list for PBXProject "WormholeLink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A70000010000000000000001 /* Debug */,
+				A70000010000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A60000010000000000000001 /* Project object */;
+}
