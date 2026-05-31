@@ -1,0 +1,96 @@
+name: CI / Release
+
+on:
+  push:
+    branches: [main]
+    tags: ['v[0-9]*']
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ── CI build ────────────────────────────────────────────────────────────────
+  build:
+    name: Build
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build (debug)
+        run: swift build
+
+  # ── Release packaging ────────────────────────────────────────────────────────
+  release:
+    name: Release
+    runs-on: macos-15
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Import a Developer ID certificate stored as a base64-encoded .p12 secret.
+      # If CERTIFICATE_P12 is not set the build proceeds unsigned (SKIP_CODESIGN=1).
+      - name: Set up signing certificate
+        env:
+          CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+          DEVELOPMENT_TEAM: ${{ secrets.DEVELOPMENT_TEAM }}
+        run: |
+          if [ -z "$CERTIFICATE_P12" ]; then
+            echo "SKIP_CODESIGN=1" >> "$GITHUB_ENV"
+            echo "No signing certificate provided; producing unsigned build."
+            exit 0
+          fi
+
+          KEYCHAIN_PATH="$RUNNER_TEMP/build.keychain"
+          echo "$CERTIFICATE_P12" | base64 --decode > "$RUNNER_TEMP/certificate.p12"
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security set-keychain-settings -lut 21600 "$KEYCHAIN_PATH"
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          security import "$RUNNER_TEMP/certificate.p12" -k "$KEYCHAIN_PATH" \
+            -P "$CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security list-keychain -d user -s "$KEYCHAIN_PATH"
+          security set-key-partition-list -S apple-tool:,apple: -s \
+            -k "$KEYCHAIN_PASSWORD" "$KEYCHAIN_PATH"
+          rm "$RUNNER_TEMP/certificate.p12"
+
+          echo "DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM" >> "$GITHUB_ENV"
+
+      # Build universal ZIP + DMG. SKIP_DMG_LAYOUT=1 disables Finder
+      # AppleScript window styling, which requires a running GUI session.
+      - name: Package release artifacts
+        env:
+          SKIP_DMG_LAYOUT: '1'
+        run: ./scripts/release-all.sh
+
+      # Notarize the DMG if Apple credentials are configured.
+      # Supports both a stored keychain profile (NOTARY_PROFILE) and
+      # raw Apple ID credentials (APPLE_ID / APPLE_TEAM_ID / APPLE_APP_PASSWORD).
+      - name: Notarize DMG
+        env:
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+          NOTARY_PROFILE: ${{ secrets.NOTARY_PROFILE }}
+        run: |
+          if [ -z "${APPLE_ID:-}${NOTARY_PROFILE:-}" ]; then
+            echo "Skipping notarization: no credentials configured."
+            exit 0
+          fi
+          ./scripts/notarize-release.sh dist/WormholeLink-macOS.dmg
+
+      - name: Clean up keychain
+        if: always()
+        run: security delete-keychain "$RUNNER_TEMP/build.keychain" 2>/dev/null || true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/WormholeLink-macOS.zip
+            dist/WormholeLink-macOS.dmg
+          generate_release_notes: true

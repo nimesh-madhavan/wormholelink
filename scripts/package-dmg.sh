@@ -9,7 +9,6 @@ DMG_PATH="${DMG_PATH:-$DIST_DIR/WormholeLink-macOS.dmg}"
 DMG_VOLUME_NAME="${DMG_VOLUME_NAME:-WormholeLink}"
 STAGING_DIR="$DIST_DIR/dmg-root"
 BACKGROUND_PATH="${BACKGROUND_PATH:-$ROOT_DIR/Config/DMGBackground.png}"
-VOLUME_ICON_PATH="${VOLUME_ICON_PATH:-$ROOT_DIR/Config/AppIcon.icns}"
 RW_DMG_PATH="$DIST_DIR/WormholeLink-layout.dmg"
 MOUNT_POINT=""
 
@@ -47,11 +46,6 @@ if [ ! -f "$BACKGROUND_PATH" ]; then
   exit 1
 fi
 
-if [ ! -f "$VOLUME_ICON_PATH" ]; then
-  echo "error: expected DMG volume icon at $VOLUME_ICON_PATH" >&2
-  exit 1
-fi
-
 mkdir -p "$DIST_DIR"
 rm -rf "$STAGING_DIR"
 mkdir -p "$STAGING_DIR"
@@ -79,10 +73,6 @@ if [ -z "$MOUNT_POINT" ]; then
   echo "error: failed to mount temporary DMG" >&2
   exit 1
 fi
-
-cp "$VOLUME_ICON_PATH" "$MOUNT_POINT/.VolumeIcon.icns"
-SetFile -a V "$MOUNT_POINT/.VolumeIcon.icns"
-SetFile -a C "$MOUNT_POINT"
 
 if [ "${SKIP_DMG_LAYOUT:-0}" != "1" ]; then
   BACKGROUND_ALIAS_PATH="$MOUNT_POINT/.background/background.png"

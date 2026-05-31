@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WormholeLink is a native macOS menu bar app for creating and managing SSH tunnels. Supports local forwards, remote forwards, and SOCKS proxies.">
+  <title>WormholeLink — macOS SSH Tunnel Manager</title>
+  <style>
+    :root {
+      --bg:       #07101f;
+      --surface:  #0d1929;
+      --border:   #1a2e4a;
+      --accent:   #42bbf8;
+      --dim:      #6b8aaa;
+      --text:     #ddeeff;
+      --radius:   14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── hero ────────────────────────────────────────── */
+    header { text-align: center; padding: 72px 24px 60px; }
+
+    .app-icon {
+      display: inline-block;
+      border-radius: 22px;
+      box-shadow: 0 0 0 1px var(--border), 0 8px 40px rgba(66,187,248,.20);
+      margin-bottom: 28px;
+      line-height: 0;
+    }
+
+    header h1 {
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    header .tagline {
+      font-size: 20px;
+      color: var(--dim);
+      margin-bottom: 36px;
+    }
+
+    .download-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 22px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: opacity .15s;
+    }
+    .btn:hover { opacity: .82; text-decoration: none; }
+
+    .btn-primary  { background: var(--accent); color: #07101f; }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .req-note { font-size: 13px; color: var(--dim); }
+
+    /* ── sections ───────────────────────────────────── */
+    section { padding: 52px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    h2 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 28px;
+    }
+
+    /* ── feature cards ──────────────────────────────── */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 20px 18px;
+    }
+
+    .card .icon { font-size: 24px; margin-bottom: 10px; }
+    .card h3 { font-size: 15px; font-weight: 650; margin-bottom: 5px; }
+    .card p  { font-size: 14px; color: var(--dim); line-height: 1.5; }
+
+    /* ── requirements ───────────────────────────────── */
+    dl.req {
+      display: grid;
+      grid-template-columns: max-content 1fr;
+      gap: 10px 24px;
+      font-size: 15px;
+    }
+    dl.req dt { color: var(--dim); }
+    dl.req dd { font-weight: 500; }
+    dl.req code {
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      font-size: 13px;
+      color: var(--accent);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 1px 6px;
+    }
+
+    /* ── code strip ─────────────────────────────────── */
+    .code-strip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      font-family: "SF Mono", ui-monospace, Menlo, monospace;
+      font-size: 14px;
+      color: var(--accent);
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    /* ── footer ─────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 24px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--dim);
+    }
+    footer a { color: var(--dim); }
+    footer a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- App icon rendered as inline SVG, matching WormholeIcon.swift -->
+  <div class="app-icon">
+    <svg width="96" height="96" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+      <rect width="96" height="96" rx="21" fill="#07101f"/>
+      <!-- bridge top -->
+      <path d="M24 24 C36 34, 60 34, 72 24" stroke="#b0d8f5" stroke-width="6" fill="none" stroke-linecap="round" opacity=".88"/>
+      <!-- bridge bottom -->
+      <path d="M24 72 C36 62, 60 62, 72 72" stroke="#b0d8f5" stroke-width="6" fill="none" stroke-linecap="round" opacity=".88"/>
+      <!-- beam -->
+      <line x1="14" y1="48" x2="82" y2="48" stroke="#b0d8f5" stroke-width="2.6" stroke-linecap="round" opacity=".78"/>
+      <!-- left portal outer -->
+      <ellipse cx="23" cy="48" rx="9" ry="26" stroke="#c8eaff" stroke-width="2.6" fill="none" opacity=".92"/>
+      <!-- left portal inner -->
+      <ellipse cx="23" cy="48" rx="4" ry="12" stroke="#7dd3fc" stroke-width="1.4" fill="none" opacity=".65"/>
+      <!-- right portal outer -->
+      <ellipse cx="73" cy="48" rx="9" ry="26" stroke="#c8eaff" stroke-width="2.6" fill="none" opacity=".92"/>
+      <!-- right portal inner -->
+      <ellipse cx="73" cy="48" rx="4" ry="12" stroke="#7dd3fc" stroke-width="1.4" fill="none" opacity=".65"/>
+      <!-- center orb -->
+      <circle cx="48" cy="48" r="5.5" fill="#42bbf8" opacity=".96"/>
+    </svg>
+  </div>
+
+  <h1>WormholeLink</h1>
+  <p class="tagline">Native macOS SSH tunnel manager — right in your menu bar</p>
+
+  <div class="download-row">
+    <a class="btn btn-primary" href="https://github.com/nimesh-madhavan/wormholelink/releases/latest/download/WormholeLink-macOS.dmg">
+      ↓&nbsp; Download DMG
+    </a>
+    <a class="btn btn-secondary" href="https://github.com/nimesh-madhavan/wormholelink/releases">
+      All Releases
+    </a>
+    <a class="btn btn-secondary" href="https://github.com/nimesh-madhavan/wormholelink">
+      View on GitHub
+    </a>
+  </div>
+  <p class="req-note">macOS 13 Ventura or newer &nbsp;·&nbsp; Universal binary (Apple Silicon &amp; Intel)</p>
+</header>
+
+<main class="container">
+
+  <section>
+    <h2>Features</h2>
+    <div class="features">
+      <div class="card">
+        <div class="icon">🔀</div>
+        <h3>Three tunnel types</h3>
+        <p>Local forward, remote forward, and SOCKS proxy tunnels — all in one app.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔑</div>
+        <h3>Keychain credential storage</h3>
+        <p>Passwords and passphrases are stored in the macOS Keychain, never in plain text.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔁</div>
+        <h3>Auto-reconnect</h3>
+        <p>Tunnels reconnect automatically on disconnect with exponential back-off.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌐</div>
+        <h3>System proxy integration</h3>
+        <p>SOCKS tunnels can automatically configure the macOS system proxy settings.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📋</div>
+        <h3>Import &amp; export</h3>
+        <p>Share tunnel configurations as JSON — individually or as a bulk backup.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🚀</div>
+        <h3>Launch at login</h3>
+        <p>Start automatically and connect configured tunnels the moment you log in.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Requirements</h2>
+    <dl class="req">
+      <dt>macOS</dt>
+      <dd>13 Ventura or newer</dd>
+      <dt>Architecture</dt>
+      <dd>Universal binary — Apple Silicon and Intel</dd>
+      <dt>SSH</dt>
+      <dd>System SSH at <code>/usr/bin/ssh</code> (included with macOS)</dd>
+    </dl>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <p>
+      <a href="https://github.com/nimesh-madhavan/wormholelink">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/nimesh-madhavan/wormholelink/blob/main/LICENSE">MIT License</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/nimesh-madhavan/wormholelink/releases">Releases</a>
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

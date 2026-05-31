@@ -223,6 +223,33 @@ Optional environment variables:
 
 - `NOTARIZE_DMG=1`: also notarize and staple the DMG once both artifacts are built
 
+## GitHub Actions
+
+A CI/release workflow is defined in `.github/workflows/release.yml`.
+
+- **Every push to `main`** and every pull request runs `swift build` as a CI gate.
+- **Pushing a version tag** triggers a full release: universal binary archive, ZIP, DMG, and a GitHub Release with both artifacts attached.
+
+### Trigger a release
+
+```bash
+git tag v1.0.0 && git push origin v1.0.0
+```
+
+### Repository secrets
+
+All secrets are optional. Without them the workflow produces an unsigned build with no notarization.
+
+| Secret | Purpose |
+|---|---|
+| `CERTIFICATE_P12` | Developer ID certificate, base64-encoded |
+| `CERTIFICATE_PASSWORD` | Password for the `.p12` file |
+| `KEYCHAIN_PASSWORD` | Temporary CI keychain password |
+| `DEVELOPMENT_TEAM` | Apple Developer Team ID |
+| `APPLE_ID` | Apple ID for notarization |
+| `APPLE_TEAM_ID` | Team ID for notarization |
+| `APPLE_APP_PASSWORD` | App-specific password for `notarytool` |
+
 ## Current Limitations
 
 - The included release flow produces an archived app bundle, ZIP, and styled DMG, but it does not yet automate Developer ID signing for the DMG container itself
